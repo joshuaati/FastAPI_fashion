@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fastapi-fashion"
+version = "0.1.0"
+description = ""
+authors = ["joshuaati <joshuaati97@gmail.com>"]
+readme = "README.md"
+packages = [{include = "fastapi_fashion"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+uvicorn = "^0.20.0"
+fastapi = "^0.88.0"
+pydantic = "^1.10.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
