@@ -5,12 +5,12 @@ from ..db_setup import Base
 
 
 
-class Gender(str, Enum):
+class Gender(Enum):
     Male = "Male"
     Female = "Female"
     Others = "Others"
 
-class Role(str, Enum):
+class Role(Enum):
     Manager = "Manager"
     Supervisor = "Supervisor"
     Worker = "Worker"
@@ -27,7 +27,7 @@ class CustomerModel(Base):
     email = Column(String(100), nullable=False)
     phone = Column(String(12), nullable=False)
 
-    order = relationship("Orders", back_populates="customer")
+    order = relationship("OrderModel", back_populates="customer")
 
 
 class EmployeeModel(Base):
@@ -42,4 +42,4 @@ class EmployeeModel(Base):
     phone = Column(String(12), nullable=False)
     role = Column(Role, nullable = False)
 
-    order = relationship("Orders", back_populates="employee")
+    order = relationship("OrderModel", back_populates="employee")

@@ -30,12 +30,12 @@ class Inventory(InventoryBase):
 
 
 class OrderBase(BaseModel):
-    quantity:int
-    unit_price:float
-    order_description:Optional[str] = None
-    inventory_id:str
-    employee_id:str
-    customer_id:str
+    quantity: int
+    unit_price: float
+    order_description: Optional[str] = None
+    inventory_id: int
+    employee_id: int
+    customer_id: int
 
 
 class OrderCreate(OrderBase):

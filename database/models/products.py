@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Text, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
 from ..db_setup import Base
-from.people import Employee, Customer
+from.people import EmployeeModel, CustomerModel
 from .mixins import Timestamp
 
 class InventoryModel(Timestamp, Base):
@@ -16,7 +16,7 @@ class InventoryModel(Timestamp, Base):
     type = Column(String(300), nullable = True)
     description = Column(Text, nullable = True)
 
-    order = relationship("Order", back_populates="item")
+    order = relationship("OrderModel", back_populates="item")
 
 
 class OrderModel(Timestamp, Base):
@@ -30,8 +30,8 @@ class OrderModel(Timestamp, Base):
     employee_id = Column(Integer, ForeignKey("employees.employee_id"), nullable=False)
     customer_id = Column(Integer, ForeignKey("customers.customer_id"), nullable=False)
 
-    item = relationship("Inventory", back_populates="order")
+    item = relationship("InventoryModel", back_populates="order")
 
     # item = relationship()
-    employee = relationship(Employee, back_populates="order")
-    customer = relationship(Customer, back_populates="order")
+    employee = relationship(EmployeeModel, back_populates="order")
+    customer = relationship(CustomerModel, back_populates="order")

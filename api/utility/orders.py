@@ -33,6 +33,7 @@ def update_order(db: Session, order_id:int, order: OrderUpdate):
 
     db.commit()
     db.close()
+
     return db_order_up
 
 
@@ -41,3 +42,5 @@ def delete_order(db: Session, order_id:int):
     db.delete(db_order_dt)
     db.commit()
     db.close()
+
+    return "Order deleted"

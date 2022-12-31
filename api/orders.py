@@ -5,8 +5,8 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database.db_setup import get_session
-from pydantic_schemas.products import OrderCreate, Order
-from api.utility.orders import get_order, get_orders, create_order, delete_order, update_order, get
+from pydantic_schemas.products import Order, OrderCreate, OrderUpdate
+from api.utility.orders import get_order, get_orders, create_order, delete_order, update_order
 
 
 
@@ -23,16 +23,23 @@ async def read_orders(db: Session = Depends(get_session)):
     return orders
 
 
-@router.get("/orders/{order_id}")
+@router.get("/orders/{order_id}", response_model=Order)
 async def read_orders(order_id: int, db: Session = Depends(get_session)):
     order = get_order(db=db, order_id=order_id)
+    if order is None:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return order
 
 
 @router.patch("/orders/{order_id}")
-async def update_order():
-    ...
+async def update_orders(order_id: int, order:OrderUpdate, db: Session = Depends(get_session)):
+    order_up = update_order(db=db, order_id=order_id, order=order)
+    return order_up
 
 
 @router.delete("/orders/{order_id}")
-async def delete_order():
-    ...
+async def delete_orders(order_id: int, db: Session = Depends(get_session)):
+    order = get_order(db=db, order_id=order_id)
+    if order is None:
+        raise HTTPException(status_code=404, detail="Order not found")
+    order = delete_order(db=db, order_id=order_id)
