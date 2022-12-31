@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from api import customer, employee, inventory, orders
+from database.db_setup import engine
+from database.models import people, products
 
-
+people.Base.metadata.create_all(bind=engine)
+products.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
