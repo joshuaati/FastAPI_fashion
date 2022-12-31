@@ -5,7 +5,7 @@ from database.models.products import InventoryModel
 from pydantic_schemas.products import InventoryCreate, InventoryUpdate
 
 
-def get_inventory(db: Session, inventory_id):
+def get_inventory(db: Session, inventory_id: int):
     return db.query(InventoryModel).filter(InventoryModel.inventory_id == inventory_id).first()
 
 

@@ -2,26 +2,26 @@ import fastapi
 
 router = fastapi.APIRouter()
 
-@router.post("/inventory")
+@router.post("/inventories")
 async def create_new_inventory():
     ...
 
 
-@router.get("/inventory")
+@router.get("/inventories")
 async def read_inventory():
     ...
 
 
-@router.get("/inventory{inventory_id}")
+@router.get("/inventories/{inventory_id}")
 async def read_inventory():
     ...
 
 
-@router.patch("/inventory{inventory_id}")
+@router.patch("/inventories/{inventory_id}")
 async def update_inventory():
     ...
 
 
-@router.delete("/inventory{inventory_id}")
+@router.delete("/inventories/{inventory_id}")
 async def delete_inventory():
     ...

@@ -5,7 +5,7 @@ from database.models.people import CustomerModel
 from pydantic_schemas.people import CustomerCreate, CustomerUpdate
 
 
-def get_customer(db: Session, customer_id):
+def get_customer(db: Session, customer_id: int):
     return db.query(CustomerModel).filter(CustomerModel.customer_id == customer_id).first()
 
 

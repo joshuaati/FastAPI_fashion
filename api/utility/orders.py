@@ -5,7 +5,7 @@ from database.models.products import OrderModel
 from pydantic_schemas.products import OrderCreate, OrderUpdate
 
 
-def get_order(db: Session, order_id):
+def get_order(db: Session, order_id: int):
     return db.query(OrderModel).filter(OrderModel.order_id == order_id).first()
 
 

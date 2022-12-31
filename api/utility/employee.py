@@ -5,7 +5,7 @@ from database.models.people import EmployeeModel
 from pydantic_schemas.people import EmployeeCreate, EmployeeUpdate
 
 
-def get_employee(db: Session, employee_id):
+def get_employee(db: Session, employee_id: int):
     return db.query(EmployeeModel).filter(EmployeeModel.employee_id == employee_id).first()
 
 
