@@ -1,5 +1,6 @@
-from sqlalchemy.orm import Session
 from datetime import datetime
+
+from sqlalchemy.orm import Session
 
 from database.models.people import EmployeeModel
 from database.models.products import OrderModel
@@ -14,7 +15,7 @@ def get_employees(db: Session, skip: int = 0, limit: int = 100):
     return db.query(EmployeeModel).offset(skip).limit(limit).all()
 
 
-def get_employee_by_email(db: Session, email:str):
+def get_employee_by_email(db: Session, email: str):
     return db.query(EmployeeModel).filter(EmployeeModel.email == email).first()
 
 
@@ -30,7 +31,7 @@ def create_employee(db: Session, employee: EmployeeCreate):
     return db_employee
 
 
-def update_employee(db: Session, employee_id:int, employee: EmployeeUpdate):
+def update_employee(db: Session, employee_id: int, employee: EmployeeUpdate):
     db_employee_up = db.query(EmployeeModel).filter(EmployeeModel.employee_id == employee_id).first()
     db_employee_up.first_name = employee.first_name
     db_employee_up.last_name = employee.last_name
@@ -45,7 +46,8 @@ def update_employee(db: Session, employee_id:int, employee: EmployeeUpdate):
     db.close()
     return db_employee_up
 
-def delete_employee(db: Session, employee_id:int):
+
+def delete_employee(db: Session, employee_id: int):
     db_employee_dt = db.query(EmployeeModel).filter(EmployeeModel.employee_id == employee_id).first()
     db.delete(db_employee_dt)
     db.commit()

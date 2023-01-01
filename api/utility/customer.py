@@ -1,5 +1,6 @@
-from sqlalchemy.orm import Session
 from datetime import datetime
+
+from sqlalchemy.orm import Session
 
 from database.models.products import OrderModel
 from database.models.people import CustomerModel
@@ -14,7 +15,7 @@ def get_customers(db: Session, skip: int = 0, limit: int = 100):
     return db.query(CustomerModel).offset(skip).limit(limit).all()
 
 
-def get_customer_by_email(db: Session, email:str):
+def get_customer_by_email(db: Session, email: str):
     return db.query(CustomerModel).filter(CustomerModel.email == email).first()
 
 
@@ -30,7 +31,7 @@ def create_customer(db: Session, customer: CustomerCreate):
     return db_customer
 
 
-def update_customer(db: Session, customer_id:int, customer: CustomerUpdate):
+def update_customer(db: Session, customer_id: int, customer: CustomerUpdate):
     db_customer_up = db.query(CustomerModel).filter(CustomerModel.customer_id == customer_id).first()
     db_customer_up.first_name = customer.first_name
     db_customer_up.last_name = customer.last_name
@@ -45,7 +46,7 @@ def update_customer(db: Session, customer_id:int, customer: CustomerUpdate):
     return db_customer_up
 
 
-def delete_customer(db: Session, customer_id:int):
+def delete_customer(db: Session, customer_id: int):
     db_customer_dt = db.query(CustomerModel).filter(CustomerModel.customer_id == customer_id).first()
     db.delete(db_customer_dt)
     db.commit()

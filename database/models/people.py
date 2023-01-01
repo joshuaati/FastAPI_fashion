@@ -17,6 +17,7 @@ class Role(str, enum.Enum):
     Worker = "Worker"
     Intern = "Intern"
 
+
 class CustomerModel(Base, Timestamp):
     __tablename__ = "customers"
 

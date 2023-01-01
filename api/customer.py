@@ -39,7 +39,7 @@ async def read_customer_orders(customer_id: int, db: Session = Depends(get_sessi
     if customer is None:
         raise HTTPException(status_code=404, detail="Customer does not exist")
     orders = get_customer_orders(db=db, customer_id=customer_id)
-    if orders is None:
+    if orders == []:
         raise HTTPException(status_code=404, detail="Customer doesn't have any order")
     return orders
 

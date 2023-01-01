@@ -1,5 +1,6 @@
-from sqlalchemy.orm import Session
 from datetime import datetime
+
+from sqlalchemy.orm import Session
 
 from database.models.products import OrderModel
 from pydantic_schemas.products import OrderCreate, OrderUpdate
@@ -21,7 +22,7 @@ def create_order(db: Session, order: OrderCreate):
     return db_order
 
 
-def update_order(db: Session, order_id:int, order: OrderUpdate):
+def update_order(db: Session, order_id: int, order: OrderUpdate):
     db_order_up = db.query(OrderModel).filter(OrderModel.order_id == order_id).first()
     db_order_up.quantity = order.quantity
     db_order_up.unit_price = order.unit_price
@@ -36,7 +37,7 @@ def update_order(db: Session, order_id:int, order: OrderUpdate):
     return db_order_up
 
 
-def delete_order(db: Session, order_id:int):
+def delete_order(db: Session, order_id: int):
     db_order_dt = db.query(OrderModel).filter(OrderModel.order_id == order_id).first()
     db.delete(db_order_dt)
     db.commit()

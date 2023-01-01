@@ -5,7 +5,8 @@ from ..db_setup import Base
 from.people import EmployeeModel, CustomerModel
 from .mixins import Timestamp
 
-class InventoryModel(Timestamp, Base):
+
+class InventoryModel(Base, Timestamp):
     __tablename__ = "inventory"
 
     inventory_id = Column(Integer, primary_key=True, index=True)
@@ -19,7 +20,7 @@ class InventoryModel(Timestamp, Base):
     order = relationship("OrderModel", back_populates="item")
 
 
-class OrderModel(Timestamp, Base):
+class OrderModel(Base, Timestamp):
     __tablename__ = "orders"
 
     order_id = Column(Integer, primary_key=True, index=True)
@@ -32,6 +33,5 @@ class OrderModel(Timestamp, Base):
 
     item = relationship("InventoryModel", back_populates="order")
 
-    # item = relationship()
     employee = relationship(EmployeeModel, back_populates="order")
     customer = relationship(CustomerModel, back_populates="order")

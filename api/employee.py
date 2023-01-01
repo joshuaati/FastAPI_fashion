@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from database.db_setup import get_session
 from pydantic_schemas.people import Employee, EmployeeCreate, EmployeeUpdate
 from pydantic_schemas.products import Order
-from api.utility.employee import get_employee, get_employees, get_employee_by_email, create_employee, update_employee, delete_employee
+from api.utility.employee import get_employee, get_employees, get_employee_by_email, get_employee_orders, create_employee, update_employee, delete_employee
 
 router = fastapi.APIRouter()
 
@@ -38,7 +38,10 @@ async def read_employees_orders(employee_id: int, db: Session = Depends(get_sess
     employee = get_employee(db=db, employee_id=employee_id)
     if employee is None:
         raise HTTPException(status_code=404, detail="Employee does not exist")
-    return employee
+    orders = get_employee_orders(db=db, employee_id=employee_id)
+    if orders == []:
+        raise HTTPException(status_code=404, detail="Employee doesn't have any orders yet")
+    return orders
 
 
 @router.patch("/employees/{employee_id}")

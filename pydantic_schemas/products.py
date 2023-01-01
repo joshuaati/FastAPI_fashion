@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 
@@ -14,6 +14,7 @@ class InventoryBase(BaseModel):
 
 class InventoryCreate(InventoryBase):
     ...
+
 
 class InventoryUpdate(InventoryBase):
     ...
@@ -54,6 +55,3 @@ class Order(OrderBase):
 
     class Config:
         orm_mode = True
-
-
-

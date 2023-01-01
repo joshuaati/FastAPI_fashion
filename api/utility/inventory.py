@@ -1,5 +1,6 @@
-from sqlalchemy.orm import Session
 from datetime import datetime
+
+from sqlalchemy.orm import Session
 
 from database.models.products import InventoryModel
 from pydantic_schemas.products import InventoryCreate, InventoryUpdate
@@ -21,7 +22,7 @@ def create_inventory(db: Session, inventory: InventoryCreate):
     return db_inventory
 
 
-def update_inventory(db: Session, inventory_id:int, inventory: InventoryUpdate):
+def update_inventory(db: Session, inventory_id: int, inventory: InventoryUpdate):
     db_inventory_up = db.query(InventoryModel).filter(InventoryModel.inventory_id == inventory_id).first()
     db_inventory_up.name = inventory.name
     db_inventory_up.brand = inventory.brand
@@ -36,7 +37,7 @@ def update_inventory(db: Session, inventory_id:int, inventory: InventoryUpdate):
     return db_inventory_up
 
 
-def delete_inventory(db: Session, inventory_id:int):
+def delete_inventory(db: Session, inventory_id: int):
     db_inventory_dt = db.query(InventoryModel).filter(InventoryModel.inventory_id == inventory_id).first()
     db.delete(db_inventory_dt)
     db.commit()

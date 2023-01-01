@@ -2,6 +2,7 @@ from datetime import date, datetime
 from pydantic import BaseModel
 from database.models.people import Role, Gender
 
+
 class CustomerBase(BaseModel):
     first_name: str
     last_name: str
@@ -14,8 +15,9 @@ class CustomerBase(BaseModel):
 class CustomerCreate(CustomerBase):
     ...
 
+
 class CustomerUpdate(CustomerBase):
-    updated_at: datetime
+    ...
 
 
 class Customer(CustomerBase):
@@ -53,8 +55,3 @@ class Employee(EmployeeBase):
 
     class Config:
         orm_mode = True
-
-
-
-
-
