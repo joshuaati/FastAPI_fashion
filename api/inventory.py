@@ -30,12 +30,12 @@ async def read_inventory(inventory_id: int, db: Session = Depends(get_session)):
 
 
 @router.patch("/inventories/{inventory_id}")
-async def update_inventories(inventory_id: int, inventory: InventoryUpdate, db: Session = Depends(get_session)):
+async def update_inventory_id(inventory_id: int, inventory: InventoryUpdate, db: Session = Depends(get_session)):
     return update_inventory(db=db, inventory_id=inventory_id, inventory=inventory)
 
 
 @router.delete("/inventories/{inventory_id}")
-async def delete_inventories(inventory_id: int, db: Session = Depends(get_session)):
+async def delete_inventory_id(inventory_id: int, db: Session = Depends(get_session)):
     inventory = get_inventory(db=db, inventory_id=inventory_id)
     if inventory is None:
         raise HTTPException(status_code=404, detail="Item does not exist")

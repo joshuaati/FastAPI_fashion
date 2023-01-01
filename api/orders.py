@@ -31,12 +31,12 @@ async def read_orders(order_id: int, db: Session = Depends(get_session)):
 
 
 @router.patch("/orders/{order_id}")
-async def update_orders(order_id: int, order: OrderUpdate, db: Session = Depends(get_session)):
+async def update_order_id(order_id: int, order: OrderUpdate, db: Session = Depends(get_session)):
     return update_order(db=db, order_id=order_id, order=order)
 
 
 @router.delete("/orders/{order_id}")
-async def delete_orders(order_id: int, db: Session = Depends(get_session)):
+async def delete_order_id(order_id: int, db: Session = Depends(get_session)):
     order = get_order(db=db, order_id=order_id)
     if order is None:
         raise HTTPException(status_code=404, detail="Order not found")

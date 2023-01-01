@@ -45,12 +45,12 @@ async def read_employees_orders(employee_id: int, db: Session = Depends(get_sess
 
 
 @router.patch("/employees/{employee_id}")
-async def update_employees(employee_id:int, employee: EmployeeUpdate, db: Session = Depends(get_session)):
+async def update_employee_id(employee_id:int, employee: EmployeeUpdate, db: Session = Depends(get_session)):
     return update_employee(db=db, employee_id=employee_id, employee=employee)
 
 
 @router.delete("/employees/{employee_id}")
-async def delete_employees(employee_id:int, db: Session = Depends(get_session)):
+async def delete_employees_id(employee_id:int, db: Session = Depends(get_session)):
     employee = get_employee(db=db, employee_id=employee_id)
     if employee is None:
         raise HTTPException(status_code=404, detail="Employee does not exist")

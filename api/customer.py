@@ -12,7 +12,7 @@ from api.utility.customer import get_customer, get_customers, get_customer_by_em
 router = fastapi.APIRouter()
 
 
-@router.post("/customer", response_model=Customer)
+@router.post("/customers", response_model=Customer)
 async def create_new_customer(customer: CustomerCreate, db: Session = Depends(get_session)):
     customer_email = get_customer_by_email(db=db, email=customer.email)
     if customer_email:
@@ -20,12 +20,12 @@ async def create_new_customer(customer: CustomerCreate, db: Session = Depends(ge
     return create_customer(db=db, customer=customer)
 
 
-@router.get("/customer", response_model=List[Customer])
+@router.get("/customers", response_model=List[Customer])
 async def read_customers(db: Session = Depends(get_session)):
     return get_customers(db=db)
 
 
-@router.get("/customer{customer_id}", response_model=Customer)
+@router.get("/customers/{customer_id}", response_model=Customer)
 async def read_customer(customer_id: int, db: Session = Depends(get_session)):
     customer = get_customer(db=db, customer_id=customer_id)
     if customer is None:
@@ -33,7 +33,7 @@ async def read_customer(customer_id: int, db: Session = Depends(get_session)):
     return customer
 
 
-@router.get("/customer{customer_id}/orders", response_model=List[Order])
+@router.get("/customers/{customer_id}/orders", response_model=List[Order])
 async def read_customer_orders(customer_id: int, db: Session = Depends(get_session)):
     customer = get_customer(db=db, customer_id=customer_id)
     if customer is None:
@@ -44,13 +44,13 @@ async def read_customer_orders(customer_id: int, db: Session = Depends(get_sessi
     return orders
 
 
-@router.patch("/customer{customer_id}")
-async def update_customers(customer_id: int, customer: CustomerUpdate, db: Session = Depends(get_session)):
+@router.patch("/customers/{customer_id}")
+async def update_customer_id(customer_id: int, customer: CustomerUpdate, db: Session = Depends(get_session)):
     return update_customer(db=db, customer_id=customer_id, customer=customer)
 
 
-@router.delete("/customer{customer_id}")
-async def delete_customers(customer_id: int, db: Session = Depends(get_session)):
+@router.delete("/customers/{customer_id}")
+async def delete_customers_id(customer_id: int, db: Session = Depends(get_session)):
     customer = get_customer(db=db, customer_id=customer_id)
     if customer is None:
         raise HTTPException(status_code=404, detail="Customer does not exist")
