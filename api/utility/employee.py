@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 
 from database.models.people import EmployeeModel
+from database.models.products import OrderModel
 from pydantic_schemas.people import EmployeeCreate, EmployeeUpdate
 
 
@@ -11,6 +12,14 @@ def get_employee(db: Session, employee_id: int):
 
 def get_employees(db: Session, skip: int = 0, limit: int = 100):
     return db.query(EmployeeModel).offset(skip).limit(limit).all()
+
+
+def get_employee_by_email(db: Session, email:str):
+    return db.query(EmployeeModel).filter(EmployeeModel.email == email).first()
+
+
+def get_employee_orders(db: Session, employee_id: int):
+    return db.query(OrderModel).filter(OrderModel.employee_id == employee_id).all()
 
 
 def create_employee(db: Session, employee: EmployeeCreate):

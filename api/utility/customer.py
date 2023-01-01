@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from datetime import datetime
 
+from database.models.products import OrderModel
 from database.models.people import CustomerModel
 from pydantic_schemas.people import CustomerCreate, CustomerUpdate
 
@@ -11,6 +12,14 @@ def get_customer(db: Session, customer_id: int):
 
 def get_customers(db: Session, skip: int = 0, limit: int = 100):
     return db.query(CustomerModel).offset(skip).limit(limit).all()
+
+
+def get_customer_by_email(db: Session, email:str):
+    return db.query(CustomerModel).filter(CustomerModel.email == email).first()
+
+
+def get_customer_orders(db: Session, customer_id: int):
+    return db.query(OrderModel).filter(OrderModel.customer_id == customer_id).all()
 
 
 def create_customer(db: Session, customer: CustomerCreate):

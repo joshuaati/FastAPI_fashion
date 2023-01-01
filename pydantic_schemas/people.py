@@ -2,7 +2,6 @@ from datetime import date, datetime
 from pydantic import BaseModel
 from database.models.people import Role, Gender
 
-
 class CustomerBase(BaseModel):
     first_name: str
     last_name: str

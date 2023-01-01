@@ -19,8 +19,7 @@ async def create_new_order(order: OrderCreate, db: Session = Depends(get_session
 
 @router.get("/orders", response_model=List[Order])
 async def read_orders(db: Session = Depends(get_session)):
-    orders = get_orders(db=db)
-    return orders
+    return get_orders(db=db)
 
 
 @router.get("/orders/{order_id}", response_model=Order)
@@ -32,9 +31,8 @@ async def read_orders(order_id: int, db: Session = Depends(get_session)):
 
 
 @router.patch("/orders/{order_id}")
-async def update_orders(order_id: int, order:OrderUpdate, db: Session = Depends(get_session)):
-    order_up = update_order(db=db, order_id=order_id, order=order)
-    return order_up
+async def update_orders(order_id: int, order: OrderUpdate, db: Session = Depends(get_session)):
+    return update_order(db=db, order_id=order_id, order=order)
 
 
 @router.delete("/orders/{order_id}")
@@ -42,4 +40,4 @@ async def delete_orders(order_id: int, db: Session = Depends(get_session)):
     order = get_order(db=db, order_id=order_id)
     if order is None:
         raise HTTPException(status_code=404, detail="Order not found")
-    order = delete_order(db=db, order_id=order_id)
+    return delete_order(db=db, order_id=order_id)
